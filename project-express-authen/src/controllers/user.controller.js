@@ -1,7 +1,7 @@
 const userService = require("../services/user.service");
 const response = require("../utils/response");
 
-class UserController {
+class userController {
     /**
      * Lấy danh sách tất cả người dùng.
      */
@@ -57,4 +57,4 @@ class UserController {
     }
 }
 
-module.exports = new UserController();
+module.exports = new userController();

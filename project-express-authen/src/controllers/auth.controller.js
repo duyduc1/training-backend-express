@@ -1,9 +1,10 @@
 const authService = require("../services/auth.service")
 const response = require("../utils/response");
 const { sendMail } = require("../utils/mailer");
+const roles = require("../utils/roles");
 const jwt = require("jsonwebtoken");
 
-class AuthController {
+class authController {
     /**
      * Đăng ký tài khoản mới.
      * Kiểm tra email đã tồn tại chưa, nếu chưa thì tạo user mới.
@@ -16,16 +17,12 @@ class AuthController {
                 return response.error(res, 'Email already exists', 400);
             }
 
-            const newUser = await authService.create({name, email, password, numberphone, role: "user"});
+            const newUser = await authService.create({name, email, password, numberphone, role: roles.USER });
 
             response.created(res, { user : { id: newUser._id, name: newUser.name, email: newUser.email, numberphone: newUser.numberphone, role: newUser.role }});
         } catch (error) {
             next(error);
         }
-    }
-
-    const ROLES = {
-        USER: 'user'
     }
 
     /**
@@ -124,4 +121,4 @@ class AuthController {
     }
 }
 
-module.exports = new AuthController();
+module.exports = new authController();

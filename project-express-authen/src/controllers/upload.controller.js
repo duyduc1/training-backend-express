@@ -1,7 +1,7 @@
 const UploadService = require("../services/upload.service");
 const response = require("../utils/response");
 
-class UploadController {
+class uploadController {
     /**
      * Upload một file mới.
      * Kiểm tra file upload, lấy thông tin từ body và lưu file vào database.
@@ -108,4 +108,4 @@ class UploadController {
     }
 }
 
-module.exports = new UploadController();
+module.exports = new uploadController();

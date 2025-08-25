@@ -2,7 +2,7 @@ const path = require("path");
 const ExcelService = require("../services/excel.service");
 const response = require("../utils/response");
 
-class ExcelController {
+class excelController {
     /**
      * Đọc dữ liệu từ file Excel đã upload.
      * Kiểm tra file upload, lấy đường dẫn và đọc dữ liệu sheet.
@@ -41,4 +41,4 @@ class ExcelController {
     }
 }
 
-module.exports = new ExcelController();
+module.exports = new excelController();
