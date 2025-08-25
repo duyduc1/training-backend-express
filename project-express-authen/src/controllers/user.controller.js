@@ -2,6 +2,9 @@ const userService = require("../services/user.service");
 const response = require("../utils/response");
 
 class UserController {
+    /**
+     * Lấy danh sách tất cả người dùng.
+     */
     async getAllUsers(req, res, next) {
         try {
             const users = await userService.getAllUsers();
@@ -11,6 +14,10 @@ class UserController {
         }
     }
 
+    /**
+     * Lấy thông tin người dùng theo id.
+     * Kiểm tra id, trả về thông tin nếu tồn tại.
+     */
     async getUserById(req, res, next) {
         try {
             const user = await userService.getUserById(req.params.id);
@@ -21,6 +28,10 @@ class UserController {
         }
     }
 
+    /**
+     * Cập nhật thông tin người dùng theo id.
+     * Nhận dữ liệu mới từ body, cập nhật vào database.
+     */
     async updateUser(req, res, next) {
         try {
             const userUpdated = await userService.updateUser(req.params.id, req.body)
@@ -31,6 +42,10 @@ class UserController {
         }
     }
 
+    /**
+     * Xóa người dùng theo id.
+     * Kiểm tra id, xóa nếu tồn tại.
+     */
     async deleteUserById(req, res, next) {
         try {
             const userDeleted = await userService.deleteUserById(req.params.id);

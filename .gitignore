@@ -1,0 +1,3 @@
+# Ẩn tất cả file env
+.env
+.env.local

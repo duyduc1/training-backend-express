@@ -4,6 +4,10 @@ const { sendMail } = require("../utils/mailer");
 const jwt = require("jsonwebtoken");
 
 class AuthController {
+    /**
+     * Đăng ký tài khoản mới.
+     * Kiểm tra email đã tồn tại chưa, nếu chưa thì tạo user mới.
+     */
     async register(req, res, next) {
         try {
             const {name, email, password, numberphone} = req.body;
@@ -20,6 +24,14 @@ class AuthController {
         }
     }
 
+    const ROLES = {
+        USER: 'user'
+    }
+
+    /**
+     * Đăng nhập tài khoản.
+     * Kiểm tra email và mật khẩu, trả về JWT token nếu thành công.
+     */
     async login(req, res, next) {
         try {
             const { email, password } = req.body;
@@ -45,6 +57,10 @@ class AuthController {
         }
     }
 
+    /**
+     * Xử lý callback đăng nhập bằng Google.
+     * Tạo JWT token và redirect về client.
+     */
     async googleCallback(req, res, next) {
         try {
             const user = req.user;
@@ -61,6 +77,10 @@ class AuthController {
         }
     }
 
+    /**
+     * Gửi email yêu cầu đặt lại mật khẩu.
+     * Tạo token reset và gửi link qua email.
+     */
     async forgorPassword(req, res, next) {
         try {
             const { email } = req.body;
@@ -84,6 +104,10 @@ class AuthController {
         }
     }
 
+    /**
+     * Đặt lại mật khẩu mới bằng token.
+     * Kiểm tra token và cập nhật mật khẩu mới cho user.
+     */
     async resetPassword(req, res, next) {
         try {
             const token = req.query.token;

@@ -2,13 +2,13 @@ const mongoose = require("mongoose")
 
 const uploadfileSchema = new mongoose.Schema(
     {
-        title: {
+        Title: {
             type: String,
             required: [true, 'Title is required'],
             trim: true,
         },
 
-        description: {
+        Description: {
             type: String,
             required: true,
             trim: true,
@@ -19,7 +19,7 @@ const uploadfileSchema = new mongoose.Schema(
             required: [true, 'Image URL is required']
         },
 
-        cloudinary_id: {
+        CloudinaryId: {
             type: String,
             required: [true, 'Cloudinary ID is required'],
         },

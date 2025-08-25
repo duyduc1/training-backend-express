@@ -3,6 +3,10 @@ const ExcelService = require("../services/excel.service");
 const response = require("../utils/response");
 
 class ExcelController {
+    /**
+     * Đọc dữ liệu từ file Excel đã upload.
+     * Kiểm tra file upload, lấy đường dẫn và đọc dữ liệu sheet.
+     */
     async readExcell(req, res, next) {
         try {
             if (!req.file) {
@@ -18,6 +22,10 @@ class ExcelController {
         }
     }
 
+    /**
+     * Ghi dữ liệu vào file Excel mới.
+     * Nhận dữ liệu từ body, kiểm tra kiểu dữ liệu và tạo file Excel.
+     */
     async writeExcel(req, res, next) {
         try {
             const data = req.body.data;

@@ -6,10 +6,10 @@ const excelRouter = require('./excel.router');
 
 const router = express.Router();
 
-router.use("/users", userRouter);
-router.use("/auth", authRouter);
-router.use("/upload", uploadRouter);
-router.use("/excel", excelRouter);
-
+// Định tuyến cho các chức năng của ứng dụng
+router.use("/users", userRouter);    // Quản lý người dùng
+router.use("/auth", authRouter);     // Xác thực và đăng nhập
+router.use("/upload", uploadRouter); // Upload file
+router.use("/excel", excelRouter);   // Xử lý file Excel
 
 module.exports = router;

@@ -2,6 +2,10 @@ const UploadService = require("../services/upload.service");
 const response = require("../utils/response");
 
 class UploadController {
+    /**
+     * Upload một file mới.
+     * Kiểm tra file upload, lấy thông tin từ body và lưu file vào database.
+     */
     async uploadFile(req, res, next) {
         try {
             if (!req.file) {
@@ -22,6 +26,9 @@ class UploadController {
         }
     }
 
+    /**
+     * Lấy danh sách tất cả các file đã upload.
+     */
     async getAllFile(req, res, next) {
         try {
             const file = await UploadService.getAllFiles();
@@ -34,6 +41,10 @@ class UploadController {
         }
     }
 
+    /**
+     * Lấy thông tin file theo id.
+     * Kiểm tra id, trả về thông tin file nếu tồn tại.
+     */
     async getFileById(req, res, next) {
         try {
             const { id } = req.params;
@@ -52,6 +63,10 @@ class UploadController {
         }
     }
 
+    /**
+     * Cập nhật thông tin file theo id.
+     * Nhận dữ liệu mới từ body, cập nhật vào database.
+     */
     async updateFile(req, res, next) {
         try {
             const { id } = req.params;
@@ -71,6 +86,10 @@ class UploadController {
         }
     }
 
+    /**
+     * Xóa file theo id.
+     * Kiểm tra id, xóa file nếu tồn tại.
+     */
     async deleteFile(req, res, next) {
         try {
             const { id } = req.params;

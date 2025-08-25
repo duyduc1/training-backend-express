@@ -8,17 +8,17 @@ const Product = sequelize.define("Product", {
         primaryKey: true,
     },
 
-    product_name: {
+    ProductName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
 
-    price: {
+    Price: {
         type: DataTypes.FLOAT,
         allowNull: false
     },
 
-    description: {
+    Description: {
         type: DataTypes.STRING,
         allowNull: true,
     }

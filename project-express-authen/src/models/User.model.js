@@ -2,35 +2,35 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
     {
-        name: {
+        Name: {
             type: String,
             required: true,
         },
 
-        email: {
+        Email: {
             type: String,
             required: true,
             unique: true,
         },
 
-        password: { 
+        Password: { 
             type: String, 
             required: true 
         },
 
-        numberphone: {
+        NumberPhone: {
             type: Number,
             required: true,
         }, 
 
-        role: {
+        Role: {
             type: String,
             enum: ["user", "admin"], 
             default: "user"          
         },
 
-        resetToken: String,
-        resetTokenExpiration: Date,
+        ResetToken: String,
+        ResetTokenExpiration: Date,
 
     },
     {
