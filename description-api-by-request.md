@@ -3,7 +3,7 @@
 ## Cấu trúc Project-express 
 
 ``` bash
-project-express/
+project-express-authen/
 │── package.json
 │── server.js
 │── .env                   
@@ -468,7 +468,7 @@ Authorization: Bearer <token>
 # 7. API CURD có kết nối Database MySQL hoặc PosgreSQL
 
 ``` bash
-project-express/
+project-express-product/
 │── package.json
 │── server.js
 │── .env                   
@@ -477,28 +477,17 @@ project-express/
 │
 ├── src/                            # Lưu trữ source 
 │   ├── models/                     # Định nghĩa các schema hoặc model
-│   │   └── User.model.js           
-│   │   └── Upload.model.js         
+│   │   └── Product.model.js         
 │   │
 │   ├── controllers/                # Chứa các hàm xử lý logic request/response
-│   │   └── auth.controller.js      
-│   │   └── excel.controller.js     
-│   │   └── upload.controller.js    
-│   │   └── user.controller.js     
+│   │   └── product.controller.js         
 │   │
 │   ├── routes/                     # Định nghĩa endpoint API.
-│   │   └── auth.routes.js        
-│   │   └── excel.routes.js        
-│   │   └── upload.routes.js       
-│   │   └── user.routes.js          
+│   │   └── product.routes.js                
 │   │   └── index.js                
 │   │
 │   ├── services/                   # Chứa business logic và xử lý dữ liệu.
-│   │   └── auth.service.js         
-│   │   └── excel.service.js  
-│   │   └── upload.service.js  
-│   │   └── user.service.js  
-│   │
+│   │   └── product.service.js         
 │   └── app.js                      # Khởi tạo ứng dụng Express
 ```
 
