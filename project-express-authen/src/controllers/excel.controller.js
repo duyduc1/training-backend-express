@@ -1,5 +1,5 @@
 const path = require("path");
-const ExcelService = require("../services/excel.service");
+const excelService = require("../services/excel.service");
 const response = require("../utils/response");
 
 class excelController {
@@ -14,7 +14,7 @@ class excelController {
             }
 
             const filePath = path.join(__dirname, "../../", req.file.path);
-            const sheetData = await ExcelService.readExcell(filePath);
+            const sheetData = await excelService.readExcell(filePath);
 
             response.success(res, { data: sheetData , message: "File reading success"});
         } catch (error) {
@@ -33,7 +33,7 @@ class excelController {
                 return res.status(400).json({ message: "Data must be an array" });
             }
 
-            const filePath = await ExcelService.writeExcel(data);
+            const filePath = await excelService.writeExcel(data);
             response.success(res , {message: "Excel file created" , path: filePath});
         } catch (error) {
             next(error);

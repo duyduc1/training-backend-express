@@ -1,4 +1,4 @@
-const UploadService = require("../services/upload.service");
+const uploadService = require("../services/upload.service");
 const response = require("../utils/response");
 
 class uploadController {
@@ -14,7 +14,7 @@ class uploadController {
                 throw error;
             }
             const { Title, Description } = req.body;
-            const newFile = await UploadService.uploadFile({
+            const newFile = await uploadService.uploadFile({
                 Title,
                 Description,
                 ImageUrl: req.file.path,
@@ -31,7 +31,7 @@ class uploadController {
      */
     async getAllFile(req, res, next) {
         try {
-            const file = await UploadService.getAllFiles();
+            const file = await uploadService.getAllFiles();
             res.status(200).json({
                 message: "All files",
                 data: file
@@ -48,7 +48,7 @@ class uploadController {
     async getFileById(req, res, next) {
         try {
             const { id } = req.params;
-            const file = await UploadService.getFileById(id);
+            const file = await uploadService.getFileById(id);
             if(!file) {
                 const error = new Error('File not found');
                 error.statusCode = 404;
@@ -70,8 +70,8 @@ class uploadController {
     async updateFile(req, res, next) {
         try {
             const { id } = req.params;
-            const { title, description } = req.body;
-            const updatedFile = await UploadService.updateFileById(id, { title, description });
+            const { Title, Description } = req.body;
+            const updatedFile = await uploadService.updateFileById(id, { Title, Description });
             if(!updatedFile) {
                 const error = new Error('File not found');
                 error.statusCode = 404
@@ -93,7 +93,7 @@ class uploadController {
     async deleteFile(req, res, next) {
         try {
             const { id } = req.params;
-            const deleteImage = await UploadService.deleteFileById(id);
+            const deleteImage = await uploadService.deleteFileById(id);
             if(!deleteImage) {
                 const error = new Error('File not found');
                 error.statusCode = 404;
