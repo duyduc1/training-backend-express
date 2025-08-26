@@ -3,16 +3,16 @@ const User = require("../models/User.model");
 class userService {
     // Lấy danh sách tất cả người dùng
     async getAllUsers() {
-        return await User.find({});
+        return await User.find({}, "-Password");
     }
 
     // Lấy thông tin người dùng theo id
     async getUserById(id) {
-        return await User.findById(id);
+        return await User.findById(id).select("-Password");
     }
 
     // Cập nhật thông tin người dùng theo id
-    async updateUser(id , data) {
+    async updateUser(id, data) {
         return User.findByIdAndUpdate(id, data, { new: true, runValidators: true });
     }
 

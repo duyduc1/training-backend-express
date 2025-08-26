@@ -1,6 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const authService = require("../src/services/auth.service")
+const roles = require("../src/utils/roles");
 require("dotenv").config();
 
 passport.use(
@@ -17,11 +18,11 @@ passport.use(
 
                 if(!user) {
                     user = await authService.create({
-                        name: profile.displayName,
-                        email: email,
-                        password: "google_oauth_no_password",
-                        numberphone: 0,
-                        role: "user",
+                        Name: profile.displayName,
+                        Email: email,
+                        Password: "google_oauth_no_password",
+                        NumberPhone: 0,
+                        Role: roles.USER,
                     });
                 }
 

@@ -12,7 +12,7 @@ module.exports = function(roles = []) {
 
   return (req, res, next) => {
     // Kiểm tra role của user có nằm trong danh sách roles không
-    if (!roles.includes(req.user.role)) {
+    if (!roles.includes(req.user.Role)) {
       return response.error(res, "Forbidden: You don’t have permission.", 403);
     }
     next();

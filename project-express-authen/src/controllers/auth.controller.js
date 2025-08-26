@@ -11,15 +11,29 @@ class authController {
      */
     async register(req, res, next) {
         try {
-            const {name, email, password, numberphone} = req.body;
-            const existingUser = await authService.findByEmail(email);
-            if(existingUser) {
+            const { Name, Email, Password, NumberPhone } = req.body;
+            const existingUser = await authService.findByEmail(Email);
+            if (existingUser) {
                 return response.error(res, 'Email already exists', 400);
             }
 
-            const newUser = await authService.create({name, email, password, numberphone, role: roles.USER });
+            const newUser = await authService.create({
+                Name,
+                Email,
+                Password,
+                NumberPhone,
+                Role: roles.USER
+            });
 
-            response.created(res, { user : { id: newUser._id, name: newUser.name, email: newUser.email, numberphone: newUser.numberphone, role: newUser.role }});
+            const verifiedUser = {
+                id: newUser._id,
+                name: newUser.Name,
+                email: newUser.Email,
+                numberphone: newUser.NumberPhone,
+                role: newUser.Role,
+            };
+
+            response.created(res, { user: verifiedUser });
         } catch (error) {
             next(error);
         }
@@ -31,24 +45,32 @@ class authController {
      */
     async login(req, res, next) {
         try {
-            const { email, password } = req.body;
-            const user = await authService.findByEmail(email);
+            const { Email, Password } = req.body;
+            const user = await authService.findByEmail(Email);
             if (!user) {
                 return response.error(res, 'Invalid email or password', 401);
             }
 
-            const isMatch = await authService.checkPassword(password, user.password);
+            const isMatch = await authService.checkPassword(Password, user.Password);
             if (!isMatch) {
                 return response.error(res, 'Invalid email or password', 401);
             }
 
             const token = jwt.sign(
-                { id: user._id, email: user.email, name: user.name, numberphone: user.numberphone, role: user.role },
+                { id: user._id, email: user.Email, name: user.Name, numberphone: user.NumberPhone, Role: roles.USER },
                 process.env.JWT_SECRET,
                 { expiresIn: process.env.JWT_EXPIRATION || '1h' } 
-            );  
+            );
+            
+            const verifiedUser = {
+                id: user._id,
+                name: user.Name,
+                email: user.Email,
+                numberphone: user.NumberPhone,
+                role: user.Role,
+            };
 
-            response.success(res, { token, user: { id: user._id, name: user.name, email: user.email, numberphone: user.numberphone, role: user.role} });
+            response.success(res, { token, user: verifiedUser });
         } catch (error) {
             next(error);
         }
@@ -80,8 +102,8 @@ class authController {
      */
     async forgorPassword(req, res, next) {
         try {
-            const { email } = req.body;
-            const result = await authService.generateResetToken(email);
+            const { Email } = req.body;
+            const result = await authService.generateResetToken(Email);
             if (!result) {
                 return response.error(res, 'User not found', 404);
             }
@@ -89,7 +111,7 @@ class authController {
             const resetUrl = `http://localhost:3001/api/auth/resetpass?token=${result.token}`;
 
             await sendMail(
-                result.user.email,
+                result.user.Email,
                 "Password Reset Request",
                 `<p>You requested a password reset. Click below:</p>
                 <a href="${resetUrl}">${resetUrl}</a>`
@@ -108,8 +130,8 @@ class authController {
     async resetPassword(req, res, next) {
         try {
             const token = req.query.token;
-            const { password } = req.body;
-            const user = await authService.resetPassword(token, password);
+            const { Password } = req.body;
+            const user = await authService.resetPassword(token, Password);
             if (!user) {
                 return response.error(res, 'Email already exists', 400);
             }

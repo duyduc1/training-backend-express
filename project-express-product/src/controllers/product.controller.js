@@ -2,7 +2,9 @@ const { error } = require("../../../project-express-authen/src/utils/response");
 const productService = require("../services/product.service");
 
 class productController {
-    // Lấy danh sách tất cả sản phẩm
+    /**
+     * Lấy danh sách tất cả sản phẩm.
+     */
     async getProducts(req, res, next){
         try {
             const products = await productService.getAll();
@@ -12,7 +14,10 @@ class productController {
         }
     }
 
-    // Lấy thông tin sản phẩm theo id
+    /**
+     * Lấy thông tin sản phẩm theo id.
+     * Kiểm tra id, trả về thông tin nếu tồn tại.
+     */
     async getProductsById(req, res, next) {
         try {
             const productId = await productService.getById(req.params.id);
@@ -23,7 +28,10 @@ class productController {
         }
     }
 
-    // Tạo mới sản phẩm
+    /**
+     * Tạo một sản phẩm mới.
+     * Lưu sản phẩm mới vào database.
+     */
     async createProduct(req, res, next) {
         try {
           const product = await productService.create(req.body);    
@@ -33,7 +41,10 @@ class productController {
         }
     }
 
-    // Cập nhật thông tin sản phẩm theo id
+    /**
+     * Cập nhật thông tin sản phẩm theo id.
+     * Nhận dữ liệu mới từ body, cập nhật vào database.
+     */
     async updateProduct(req, res, next) {
         try {
           const product = await productService.update(req.params.id, req.body);
@@ -44,7 +55,10 @@ class productController {
         }
     }
 
-    // Xóa sản phẩm theo id
+    /**
+     * Xóa sản phẩm theo id.
+     * Kiểm tra id, xóa nếu tồn tại.
+     */
     async deleteProduct(req, res, next) {
         try {
             const product = await productService.delete(req.params.id);

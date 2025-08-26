@@ -13,12 +13,12 @@ class uploadController {
                 error.statusCode = 400;
                 throw error;
             }
-            const { title, description } = req.body;
+            const { Title, Description } = req.body;
             const newFile = await UploadService.uploadFile({
-                title,
-                description,
+                Title,
+                Description,
                 ImageUrl: req.file.path,
-                cloudinary_id: req.file.filename,
+                CloudinaryId: req.file.filename,
             });
             response.success(res, newFile, { message: 'File uploaded successfully'});
         } catch (error) {

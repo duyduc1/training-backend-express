@@ -18,17 +18,17 @@ class authService {
 
     // Tìm user theo id
     async findById(id) {
-        return User.findById(id);
+        return User.findById(id).select("-Password");
     }
 
-    // Tìm user theo email
-    async findByEmail(email) {
-        return User.findOne({ email });
+    // Tìm user theo Email
+    async findByEmail(Email) {
+        return User.findOne({ Email }, "-Password");
     }
 
     // Tạo token reset password và lưu vào user
-    async generateResetToken(email) {
-        const user = await User.findOne({ email });
+    async generateResetToken(Email) {
+        const user = await User.findOne({ Email });
         if (!user) return null;
 
         const token = crypto.randomBytes(32).toString("hex");
@@ -42,16 +42,16 @@ class authService {
     // Đặt lại mật khẩu mới bằng token
     async resetPassword(token, newPassword) {
         const user = await User.findOne({
-            resetToken: token,
-            resetTokenExpiration: { $gt: Date.now() }
+            ResetToken: token,
+            ResetTokenExpiration: { $gt: Date.now() }
         });
 
         if (!user) return null;
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        user.password = hashedPassword;
-        user.resetToken = undefined;
-        user.resetTokenExpiration = undefined;
+        user.Password = hashedPassword;
+        user.ResetToken = undefined;
+        user.ResetTokenExpiration = undefined;
         await user.save();
 
         return user;
